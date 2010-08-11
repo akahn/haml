@@ -537,11 +537,13 @@ END
         value = filter_and_join(value, ' ') if attr == :class
         value = filter_and_join(value, '_') if attr == :id
 
-        if value == true
-          next " #{attr}" if is_html
-          next " #{attr}=#{attr_wrapper}#{attr}#{attr_wrapper}"
-        elsif value == false
-          next
+        unless attr =~ /^data-/
+          if value == true
+            next " #{attr}" if is_html
+            next " #{attr}=#{attr_wrapper}#{attr}#{attr_wrapper}"
+          elsif value == false
+            next
+          end
         end
 
         value = Haml::Helpers.preserve(Haml::Helpers.escape_once(value.to_s))

@@ -1306,6 +1306,14 @@ SASS
       render(%{%div{:data => {:foo => %{Here's a "quoteful" string.}}}})) #'
   end
 
+  def test_html_5_data_attributes_with_booleans
+    assert_equal("<div data-author_is_admin='true'></div>\n",
+      render("%div{:data => {:author_is_admin => true}}"))
+
+    assert_equal("<div data-author_is_admin='false'></div>\n",
+      render("%div{:data => {:author_is_admin => false}}"))
+  end
+
   def test_html5_data_attributes_with_multiple_defs
     # Should always use the more-explicit attribute
     assert_equal("<div data-foo='second'></div>\n",
